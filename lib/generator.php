@@ -502,8 +502,10 @@ if ( ! class_exists( 'RPG\Generator' ) ) {
                     break;
                 
                 case 'image':
-                    $image = $this->get_image();
-                    $content = '<a href="' . $image->src . '"><img src="' . $image->src . '" />';
+                    $attachment_id = $this->generate_image(NULL, $author, 720, 480);
+                    $imgurl = wp_get_attachment_url($attachment_id);
+
+                    $content = '<a href="' . $image->src . '"><img src="' . $imgurl . '" />';
                     break;
                 
                 case 'quote':
@@ -529,7 +531,7 @@ if ( ! class_exists( 'RPG\Generator' ) ) {
 
                             if( $image  === 1) {
                                 $attachment_id  = $this->generate_image(NULL, $author, 320, 240);
-                                $img            = get_post($attachment_id);
+                              //  $img            = get_post($attachment_id);
                                 $imgurl         = wp_get_attachment_url($attachment_id);
 
                                 $content .= '<img src="' . $imgurl . '" class="size-medium" />';
