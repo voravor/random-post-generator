@@ -1,0 +1,21 @@
+# annoyances
+**/.DS_Store/**
+
+# IDE
+*.komodoproject
+.komodotools
+
+# SASS
+**/.sass-cache/**
+.sass-cache 
+*.sass-cache*
+**/.sass-cache/*
+
+# npm, node
+node_modules
+**/node_modules/**
+node_modules/*
+**/node_modules
+
+#
+**/vendor/**

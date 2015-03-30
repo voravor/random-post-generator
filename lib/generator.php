@@ -528,8 +528,9 @@ if ( ! class_exists( 'RPG\Generator' ) ) {
                             $image = mt_rand(0, $paragraphs);
 
                             if( $image  === 1) {
-                                $img   = $this->get_image(320, 240);
-                                $imgurl = $img->src;
+                                $attachment_id  = $this->generate_image(NULL, $author, 320, 240);
+                                $img            = get_post($attachment_id);
+                                $imgurl         = wp_get_attachment_url($attachment_id);
 
                                 $content .= '<img src="' . $imgurl . '" class="size-medium" />';
                             }
@@ -710,10 +711,5 @@ if ( ! class_exists( 'RPG\Generator' ) ) {
             //paragraph 2 - 8 sentences   
             
         }
-
-    }
-    
-
-
-    
+    } 
 }
