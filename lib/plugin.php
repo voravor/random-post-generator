@@ -130,7 +130,7 @@ if ( ! class_exists( 'RPG\Plugin' ) ) {
                         
             //styles and js
         //    add_action('wp_head', array($this, 'head') );
-            add_action('wp_enqueue_scripts', array($this, 'enqueue_scripts'));
+        //    add_action('wp_enqueue_scripts', array($this, 'enqueue_scripts'));
 
            // add_action( 'admin_head', array(Content::instance(),'add_script_to_admin_head') );
            
@@ -174,13 +174,7 @@ if ( ! class_exists( 'RPG\Plugin' ) ) {
         {
             include $this->get_plugin_path() . '/includes/welcome.php';  
         }
-                
-        public function enqueue_scripts()
-        {
-            //globally add dashicons... 
-            wp_enqueue_style('dashicons');
-                       
-        }
+
 
         
     }

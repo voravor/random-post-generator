@@ -36,7 +36,7 @@ spl_autoload_register(function ($className) {
     // Make sure the class included is in this plugins namespace
     if (substr($className, 0, strlen("RPG\\")) === "RPG\\") {
         
-        // Remove Helium namespace from the className
+        // Remove RPG namespace from the className
         // Replace \ with / which works as directory separator for further namespaces
         $classNameShort = strtolower(str_replace("\\", "/", substr($className, strlen("RPG\\"))));
         
