@@ -159,7 +159,7 @@ if ( ! class_exists( 'RPG\Plugin' ) ) {
         public function add_admin_menu()
         {
             
-            add_menu_page( 'RPG', 'RPG', 'administrator', 'rpg-menu', array($this, 'admin_menu'), '', 4 );
+            add_menu_page( 'RPG', 'RPG', 'administrator', 'rpg-menu', array($this, 'admin_menu'), '', NULL );
             add_submenu_page('rpg-menu', 'RPG Settings', 'Settings', 'administrator', 'rpg-settings', array(Settings::instance(), 'menu'));
             add_submenu_page('rpg-menu', 'RPG Posts', 'Posts', 'administrator', 'rpg-posts', array(Generator::instance(), 'post_menu'));
             add_submenu_page('rpg-menu', 'RPG Terms', 'Terms', 'administrator', 'rpg-terms', array(Generator::instance(), 'term_menu'));
