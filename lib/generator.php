@@ -426,7 +426,8 @@ if ( ! class_exists( 'RPG\Generator' ) ) {
             $user_args = array(
                 'role' => $role
             );
-            
+			
+			
             $users = get_users($user_args);
             
             //remove current users from $names to avoid duplicates
@@ -438,32 +439,30 @@ if ( ! class_exists( 'RPG\Generator' ) ) {
             
             //choose random keys
             $names_keys = array_rand($names_list, $num);
+			
+			if(!is_array($names_keys) ){
+				$names_keys = array($names_keys);
+			}
             
             foreach($names_keys as $key) {
-                $name = $names_list[ $key ];
-                
-                $email_name = strtolower($name);
-                $email_address = $email_name . "@example.com";
-                $password = $this->random_string(16);
-                
-                $user_id = wp_create_user ( $email_address, $password, $email_address );
-                
-                // Set the nickname
-                wp_update_user(
+                $name 			= $names_list[ $key ];
+                $email_address 	= strtolower($name) . "@example.com";
+                $password 		= $this->random_string(16);
+
+                $insert = wp_insert_user(
                     array(
                         'ID'          =>    $user_id,
+						'user_email'  => 	$email_address,
+						'user_pass'   =>	$password,
+						'user_login'  =>	$name,	
                         'nickname'    =>    $name,
                         'name'        =>    $name,
-                        'display_name' =>   $name
+                        'display_name' =>   $name,
+						'nickname'	  => 	$name,
+						'role'		  =>	$role	
                     )
-                );
-    
-                $user = new \WP_User($user_id);
-                $user->set_role($role);  
-                
+                );                
             }
-            
-           
         }
 
         private function random_string($length)
