@@ -173,8 +173,7 @@ if ( ! class_exists( 'RPG\Generator' ) ) {
             //add random existing categories and tags
             $cat_ids    = $this->get_terms($cats, $this->categories, 'category', 'term_id');
             $tags_input = $this->get_terms($tags, $this->tags, 'post_tag', 'name');
-
-            
+			
             //save post and get new post_id
             $args = array(
                 'post_title'        => $title,
@@ -185,10 +184,19 @@ if ( ! class_exists( 'RPG\Generator' ) ) {
                 'post_type'         => 'post',
                 'post_author'       => $post_author,
                 'post_category'     => $cat_ids,
-                'tags_input'        => $tags_input
+                'tags_input'        => $tags_input,
+				'tax_input'			=> $post_format
             );
+			
+			if($format != 'standard') {
+				$args['tax_input'] = array('post_format' => 'post-format-' . $format);
+			}
             
             $post_id = wp_insert_post($args);
+			
+			//post format
+          //  set_post_format($post_id, $format);
+                
 
             //add comments
             if($comments) {
@@ -202,9 +210,7 @@ if ( ! class_exists( 'RPG\Generator' ) ) {
 
             }
 
-            //post format
-            set_post_format($post_id, $format);
-                
+            
             //add rpg metadata
             add_post_meta($post_id, 'rpg-generated', true);
 
@@ -222,7 +228,7 @@ if ( ! class_exists( 'RPG\Generator' ) ) {
             );
             
             $authors        = get_users($author_args);
-            $author_key     = array_rand($authors, 1);
+            $author_key     = @array_rand($authors, 1);
             $post_author    = $authors[ $author_key ]->ID;
             
             return $post_author;
@@ -501,7 +507,7 @@ if ( ! class_exists( 'RPG\Generator' ) ) {
                     break;
                 
                 case 'image':
-                    $attachment_id = $this->generate_image(NULL, $author, 720, 480);
+                    $attachment_id = $this->generate_image(NULL, $author, 1920, 1200);
                     $imgurl = wp_get_attachment_url($attachment_id);
 
                     $content = '<a href="' . $image->src . '"><img src="' . $imgurl . '" />';
@@ -622,7 +628,7 @@ if ( ! class_exists( 'RPG\Generator' ) ) {
             return $list;   
         }
         
-        private function get_image($width = 720, $height = 480)
+        private function get_image($width = 1920, $height = 1200)
         {
             $src = 'http://lorempixel.com/' . $width . '/' . $height . '/'; //720/480/';
             $image_data = file_get_contents($src);
